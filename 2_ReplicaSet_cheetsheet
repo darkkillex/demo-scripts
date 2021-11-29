@@ -1,0 +1,20 @@
+## Check existing replicaset
+kubectl gets replicaset
+
+## Create a replicaset from YAML file and run directly PODs of it
+kubectl create -f replicaset-definition-1.yaml
+
+## Edit or Update the existing ReplicaSet
+kubectl edit replicaset NAME_OF_REPLICASET_FILE
+
+# Remove an existing ReplicaSet
+kubectl delete replicaset NAME_OF_REPLICASET_FILE
+
+# Scale a ReplicaSet
+# Three ways to do this:
+# 1. Update the number of replicas in the definition file and then run the following command:
+kubectl replace -f NAME_OF_REPLICASET_FILE
+# 2. Scale the number with the name of definition file ReplicaSet (WITHOUT modifying the file)
+kubectl scale rs NAME_OF_REPLICASET --replicas=5
+# 3. Scale the number of replicas with name: attribute of definition file ReplicaSet (WITHOUT modifying the file)
+kubectl scale --replicas=5 replicaset myapp-replicaset (attribute name: contained in the file)

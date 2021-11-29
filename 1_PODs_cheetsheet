@@ -8,7 +8,7 @@ kubectl delete pod NAME_OF_THE_POD
 kubectl run nginx --image=nginx
 
 ## Information about existing PODs (image container)
-kubectl describe pods
+kubectl describe pods | grep -i image
 
 ## Detailed information about a single POD (IPs, status, node etc.)
 kubectl describe pod NAME_OF_THE_POD
