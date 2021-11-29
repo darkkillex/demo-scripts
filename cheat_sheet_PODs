@@ -1,0 +1,39 @@
+## Check how many PODs exist on the system
+kubectl get pods
+
+##  Remove a POD
+kubectl delete pod NAME_OF_THE_POD
+
+## Create a new pod with the nginx image.
+kubectl run nginx --image=nginx
+
+## Information about existing PODs (image container)
+kubectl describe pods
+
+## Detailed information about a single POD (IPs, status, node etc.)
+kubectl describe pod NAME_OF_THE_POD
+
+## Information about existing PODs (IPs, status, node etc.)
+kubectl get pods -o wide
+________________________________________________________
+
+## Create a POD called redis from command line
+kubectl run redis --image=redis123 --dry-run=client -o yaml > redis-definition.yaml # option to create a manifest file
+kubectl create -f redis-definition.yaml # command to create a resource from the manifest file
+
+## Change something in a POD file config with VIM text editor from terminal
+vim redis-definition.yaml
+
+## To save the file and exit from terminal text editor
+Press 'ESC' and then type ':wq!'
+
+## To check that file was created/changed
+cat redis-definition.yaml
+
+## Apply last changes
+kubectl apply -f redis-definition.yaml
+
+
+
+
+
