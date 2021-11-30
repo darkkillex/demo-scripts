@@ -1,0 +1,17 @@
+# Create a service to access the web application using the service-definition-1.yaml file
+
+# 1.
+kubectl create -f service-definition-1.yaml
+
+# OR using the CLI exposing directly the service, then
+
+kubectl expose deployment simple-webapp-deployment --name=webapp-service --target-port=8080 --type=NodePort --port=8080
+--dry-run=client -o yaml > svc.yaml
+
+NB. we can't add nodePort directly on the CLI then we need to modify the YAML file with vi/vim command.
+
+THEN
+
+kubectl apply -f svc.yaml
+
+AND OUR SERVICE IS UP

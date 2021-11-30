@@ -1,0 +1,12 @@
+ # Search which namespace has a pod called blue
+ kubectl get pods --all-namespaces
+
+ # CREATE A NAMESPACE
+ kubectl create namespace NAME
+
+ # SWITCH TO ANOTHER NAMESPACE
+ kubectl config set-context $(kubectl config current-context) --namespace=NAME_OF_THE_NAMESPACE
+
+# Reach a service from another namespace
+ds-service.dev.svc.cluster.local
+SERVICE-NAME.NAMESPACE.SERVICE.DOMAIN.DOMAIN
