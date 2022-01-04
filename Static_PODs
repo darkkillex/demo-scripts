@@ -1,0 +1,26 @@
+# Find the config file of static PODs and the path of the directory holding the static pod definition file
+
+ps -aux | grep kubelet
+#        OR BETTER
+
+ps -ef | grep kubelet
+
+# that means: look for lines containing 'kubelet' in a detailed overview/snapshot
+of all current processes, and display those lines
+-e - show all processes, not just those belonging to the user
+-f - show processes in full format (more detailed than default)
+
+# then, search for the line --config=/var/lib/kubelet/config.yaml to find the config.yaml file
+and run the command:
+
+grep -i staticpod /var/lib/kubelet/config.yaml
+
+# to search 'staticPodPath:' line, that indicates what is the directory holding static pod definition file
+
+--------------------------------------------------------
+
+# Create a static POD with a command sleep of 1000
+kubectl run --restart=Never --image=busybox static-busybox
+--dry-run=client -o yaml --command -- sleep 1000 > /etc/kubernetes/manifests/static-busybox.yaml
+
+# N.B. /etc/kubernetes/manifests/ is the location of static POD config files.

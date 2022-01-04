@@ -1,5 +1,8 @@
-## Check how many PODs exist on the system
+# Check how many PODs exist on the default namespace
 kubectl get pods
+
+## Check how many PODs exist on the default namespace
+kubectl get pods --no-headers | wc -l
 
 ##  Remove a POD
 kubectl delete pod NAME_OF_THE_POD
@@ -32,6 +35,11 @@ cat redis-definition.yaml
 
 ## Apply last changes
 kubectl apply -f redis-definition.yaml
+
+# Copy configuration of an existing/running POD on a new configuration file.yaml
+kubectl get pods pod_name - o yaml > new_conf_file.yaml
+    # AND the apply the conf_file to create the POD
+    kubectl apply -f new_conf_file.yaml
 
 
 
