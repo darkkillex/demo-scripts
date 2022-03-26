@@ -1,0 +1,20 @@
+Inspect the environment and identify the authorization modes configured on the cluster.
+Use the command kubectl describe pod kube-apiserver-controlplane -n kube-system
+and look for --authorization-mode.
+
+
+How to know which account is the 'kube-proxy' role assigned to it
+kubectl describe rolebinding kube-proxy --namespace=kube-system
+
+
+To create a Role:
+kubectl create role developer --namespace=default --verb=list,create,delete --resource=pods
+
+To create a RoleBinding:
+kubectl create rolebinding dev-user-binding --namespace=default --role=developer --user=dev-user
+OR
+Solution manifest file (classic YAML file through a research on
+K8s documentation for the parameters) to create a role and rolebinding
+in the default namespace:
+
+
