@@ -1,0 +1,23 @@
+How to deploy weave-net networking solution to the cluster.
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+
+Now, check the creation of the daemon in kube-system namespace...
+kubectl -n kube-system get pods
+
+... and inspect logs if there are any Error or CrashLoopBackOff states
+kubectl logs -n kube-system weave-net-nameOfTheService -c weave
+
+If there are any error of overlapping IPs, please use the option (see the following link "Configuration option")
+and add the right option to the end of the MANIFEST to change the dafault IP.
+Start from the IP of the pod app (in my exercise is 10.50.0.4) and extend the class to 10.50.0.0/16 so:
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')&env.IPALLOC_RANGE=10.50.0.0/16"
+
+
+
+PLEASE CHECK THIS LINKS:
+Installation:
+https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#-installation
+
+Configuration options:
+https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#-changing-configuration-options

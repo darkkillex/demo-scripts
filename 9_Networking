@@ -44,3 +44,15 @@ Which of these have more client connections established?
 root@controlplane:~# netstat -anp | grep etcd
 and search for the most used port
 
+
+Inspect the kubelet service
+root@controlplane:~# ps -aux | grep -i kubelet
+
+## The CNI binaries are located under /opt/cni/bin by default
+## For checking what is the CNI plugin configured to be used on a kubernetes cluster,
+    check the file inside the folder ls /etc/cni/net.d/
+
+
+
+
+
