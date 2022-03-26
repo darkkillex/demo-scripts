@@ -2,26 +2,42 @@
 
 Run the following command to identify the interface.
 root@controlplane:~# ip a OR ip link
+OR
+root@controlplane:~# ifconfig -a
+root@controlplane:~# cat /etc/network/interfaces
+
+
 
 What is the MAC address of the interface on the master node?
 root@controlplane:~#ip link show eth0
 
+
 What is the MAC address assigned to node01,
 that is a node present (usually masternode) in the same cluster, but in which we are not in?
 root@controlplane:~# arp node01
+OR
+root@controlplane:~# ssh node01 ifconfig node01
+
 
 Check the interface created by Docker
 root@controlplane:~# ip link | grep -i docker
 
+
 What is the state of the interface docker0?
 root@controlplane:~# ip link | grep -i docker | grep state
 
+
 If you were to ping google from the master node, which route does it take? Check the default gateway
 root@controlplane:~# ip route show default
+OR
+root@controlplane:~# ip r
+and search for the first line of results
+
 
 What is the port the kube-scheduler is listening on in the controlplane node (masternode)?
 root@controlplane:~# netstat -nplt | grep -i kube-scheduler
-N.B. consider the port binded to the IP add
+N.B. consider the port binded to the IP address
+
 
 Notice that ETCD is listening on two ports.
 Which of these have more client connections established?
