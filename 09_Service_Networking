@@ -1,0 +1,10 @@
+Network Range IP addresses for Cluster:
+* install ipcalc utility
+# root@controlplane:# sudo apt-get update && sudo apt-get install ipcalc
+# root@controlplane:# ipcalc ip_of_the_virtual_interface
+
+
+Network Range IP addresses for PODs on the Cluster?
+* The network is configured with weave. Check the weave pods logs using command:
+# root@controlplane:# kubectl logs <weave-pod-name> weave -n kube-system
+* and look for ipalloc-range
