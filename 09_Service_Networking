@@ -1,10 +1,19 @@
 Network Range IP addresses for Cluster:
-* install ipcalc utility
-# root@controlplane:# sudo apt-get update && sudo apt-get install ipcalc
-# root@controlplane:# ipcalc ip_of_the_virtual_interface
+***** install ipcalc utility
+##### root@controlplane:# sudo apt-get update && sudo apt-get install ipcalc
+##### root@controlplane:# ipcalc ip_of_the_virtual_interface
 
 
 Network Range IP addresses for PODs on the Cluster?
-* The network is configured with weave. Check the weave pods logs using command:
-# root@controlplane:# kubectl logs <weave-pod-name> weave -n kube-system
-* and look for ipalloc-range
+***** The network is configured with weave. Check the weave pods logs using command:
+##### root@controlplane:# kubectl logs <weave-pod-name> weave -n kube-system
+***** and look for ipalloc-range
+
+Network Range IP addresses for the services within the Cluster?
+***** Inspect the setting on kube-api server by running on command:
+##### root@controlplane:# cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep cluster-ip-range
+
+
+What type of proxy is the kube-proxy configured to use?
+***** Check the logs of the kube-proxy pods. Run the command:
+##### root@controlplane:# kubectl logs <kube-proxy-pod-name> -n kube-system
