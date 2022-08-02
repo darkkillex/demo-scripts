@@ -1,0 +1,37 @@
+# Exclude active node (which are running pods on)
+
+kubectl drain NODE_NAME -- ignore-deamonsets
+
+
+#Check the version of the cluster
+kubeadm upgrade plan
+    if there are any useful updates...
+
+# Upgrade kubeadm tool (if not already), then the master components, and finally the kubelet.
+# Practice referring to the kubernetes documentation page. Note: While upgrading kubelet,
+# if you hit dependency issue while running the apt-get upgrade kubelet command,
+# use the apt install kubelet=1.20.0-00 command instead
+
+On the controlplane node, run the command run the following commands:
+
+apt update
+This will update the package lists from the software repository.
+
+apt install kubeadm=1.20.0-00
+This will install the kubeadm version 1.20
+
+kubeadm upgrade apply v1.20.0
+(for MASTER NODE)This will upgrade kubernetes controlplane (masternode). Note that this can take a few minutes.
+-----------------------
+sudo kubeadm upgrade node
+(for WORKER NODE)
+
+apt install kubelet=1.20.0-00 This will update the kubelet with the version 1.20.
+
+You may need to restart kubelet after it has been upgraded.
+Run: systemctl restart kubelet
+
+# Schedule again the former mainteinance node
+
+kubectl uncordon NODE_NAME
+
