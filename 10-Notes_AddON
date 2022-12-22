@@ -1,0 +1,42 @@
+###   Workers Node NotReady   ###
+
+1. Try to restart kubelet service of the failed node
+
+controlplane ~ ➜ ssh node01 “systemctl restart kubelet.service”
+
+or
+
+2. Check logs about kubelet status 
+
+controlplane ~ ➜ journal -u kubelet.service
+
+    go on failed node...
+controlplane ~ ➜ ssh node01
+
+   ...and check error on the 2 following config file and fix it
+
+node01 ~ ➜ vi /var/lib/kubelet/config.yaml
+node01 ~ ➜ vi /etc/kubernetes/kubelet.conf
+
+  restart pls
+node01 ~ ➜ systemctl restart kubelet.service
+#####################################################################
+
+ETCD BACK AND RESTORE
+
+BACKUP
+controlplane ~ ➜ ETCDCTL_API=3 etcdctl --endpoints https://127.0.0.1:2379 --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --cacert=/etc/kubernetes/pki/etcd/ca.crt snapshot save /opt/snapshot-pre-boot.db
+
+RESTORE
+controlplane ~ ➜  ETCDCTL_API=3 etcdctl snapshot restore --data-dir /root/backup-etcd /opt/snapshot-pre-boot.db #DATADIR where we have restored the etcd snapshot
+
+Then please change /etc/kubernetes/manifests/etcd.yaml at the line
+
+  volumes:
+  - hostPath:
+      path: /var/lib/etcd-from-backup ➜ /root/backup-etcd
+      type: DirectoryOrCreate
+    name: etcd-data
+
+
+
